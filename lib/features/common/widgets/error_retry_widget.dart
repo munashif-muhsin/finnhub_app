@@ -16,8 +16,8 @@ class ErrorRetryWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const Text(
-          "An error occurred. Please try again.",
+        Text(
+          message ?? "An error occurred. Please try again.",
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 20),

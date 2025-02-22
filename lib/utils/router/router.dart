@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 
+import '../../features/home/presentation/home_page.dart';
 import '../../features/splash/presentation/splash_page.dart';
 import 'routes.dart';
 
@@ -10,6 +11,9 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case Routes.splash:
         return MaterialPageRoute(builder: (context) => const SplashPage());
+
+      case Routes.home:
+        return MaterialPageRoute(builder: (context) => const HomePage());
 
       default:
         return MaterialPageRoute(

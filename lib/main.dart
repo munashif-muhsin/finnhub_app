@@ -1,11 +1,12 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:finnhub_app/utils/router/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+import 'theme/app_theme.dart';
 import 'utils/api_url.dart';
+import 'utils/router/router.dart';
 import 'utils/router/routes.dart';
 
 /// This is used to setup the API urls based on the endpoint
@@ -55,9 +56,10 @@ class FinnHubApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       navigatorKey: navigatorKey,
-      title: 'GymBook',
+      title: 'Finnhub',
       onGenerateRoute: generateRoute,
       initialRoute: Routes.splash,
+      theme: AppTheme.currentTheme(context),
     );
   }
 }

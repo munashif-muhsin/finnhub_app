@@ -14,7 +14,7 @@ class SplashPage extends StatelessWidget {
         children: [
           FlutterLogo(size: 100),
           const SizedBox(height: 50),
-          CircularProgressIndicator.adaptive(),
+          Center(child: CircularProgressIndicator.adaptive()),
           const SizedBox(height: 50),
           // Test code to navigate to home screen
           MaterialButton(

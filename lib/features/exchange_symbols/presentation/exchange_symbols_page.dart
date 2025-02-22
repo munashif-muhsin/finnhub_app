@@ -1,3 +1,4 @@
+import 'package:finnhub_app/features/tick/presentation/tick_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -66,7 +67,11 @@ class ExchangeSymbolsPage extends StatelessWidget {
                         child: ListView.builder(
                           itemCount: state.symbols.length,
                           itemBuilder: (context, index) {
-                            return ExchangeSymbolWidget(symbol: state.symbols.elementAt(index));
+                            final symbol = state.symbols.elementAt(index);
+                            return ExchangeSymbolWidget(
+                              symbol: symbol,
+                              tickWidget: TickWidget(symbol: symbol.symbol),
+                            );
                           },
                         ),
                       )

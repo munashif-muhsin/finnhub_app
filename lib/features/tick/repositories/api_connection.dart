@@ -53,7 +53,7 @@ class ApiConnection {
 
       await _channel.ready;
       isTryingToReconnect = false;
-      print("connection ready");
+      log("connection ready");
 
       // Resubscribe if connection was disconnected
       if (_subscriptions.values.where((element) => element != 0).isNotEmpty) {
@@ -83,7 +83,6 @@ class ApiConnection {
 
       final list = List<TickData>.from(response.map((e) => TickData.fromJson(e)));
       for (var element in list) {
-        print(element);
         _tickController.add(element);
       }
     } catch (e, stackTrace) {
@@ -95,7 +94,7 @@ class ApiConnection {
   // Use this for one time requests
   void addMessage(String message) {
     if (_channel.closeCode == null) {
-      print(message);
+      log(message);
       _channel.sink.add(message);
     }
   }

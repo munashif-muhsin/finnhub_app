@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:finnhub_app/features/exchange_symbols/models/exchange_symbol_model.dart';
 
+import '../../../tick/presentation/tick_widget_test.dart';
+
 void main() {
-  group('ForexSymbolWidget', () {
+  group('ExchangeSymbolWidget', () {
     testWidgets('displays symbol information correctly', (tester) async {
       final symbol = ExchangeSymbol(
         description: 'Euro/US Dollar',
@@ -15,14 +17,17 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: ExchangeSymbolWidget(symbol: symbol),
+            body: ExchangeSymbolWidget(
+              symbol: symbol,
+              tickWidget: MockTickWidgetWithMixin(symbol: symbol.symbol),
+            ),
           ),
         ),
       );
 
       expect(find.text(symbol.displaySymbol), findsOneWidget);
       expect(find.text(symbol.description), findsOneWidget);
-      expect(find.byIcon(Icons.keyboard_arrow_up), findsOneWidget);
+      expect(find.byType(MockTickWidgetWithMixin), findsOneWidget);
     });
   });
 }

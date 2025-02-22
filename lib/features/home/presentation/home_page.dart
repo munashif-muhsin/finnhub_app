@@ -8,27 +8,9 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 1,
-      child: Scaffold(
-        backgroundColor: AppColors.of(context).background,
-        bottomNavigationBar: SafeArea(
-          child: TabBar(
-            overlayColor: WidgetStateProperty.all(Colors.transparent),
-            padding: EdgeInsets.zero,
-            labelPadding: EdgeInsets.zero,
-            indicatorPadding: EdgeInsets.zero,
-            labelColor: Theme.of(context).colorScheme.primary,
-            indicator: BoxDecoration(border: Border.all(color: Colors.transparent)),
-            tabs: const [
-              Tab(
-                text: 'Forex',
-              ),
-            ],
-          ),
-        ),
-        body: const TabBarView(children: [ForexPage()]),
-      ),
+    return Scaffold(
+      backgroundColor: AppColors.of(context).background,
+      body: ForexPage(),
     );
   }
 }

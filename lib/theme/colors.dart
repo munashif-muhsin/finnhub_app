@@ -10,6 +10,9 @@ final Color _accent1 = Color(0xFF2962FF);
 final Color _accent2 = Color(0xFFFFAB00);
 
 class AppColors {
+  // Global colors
+  static get danger => _failure;
+
   final Color background;
   final Color surface;
   final Color surfaceLight;

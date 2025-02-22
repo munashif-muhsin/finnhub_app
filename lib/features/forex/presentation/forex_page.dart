@@ -31,6 +31,7 @@ class _ForexPageState extends State<ForexPage> {
         ),
       ),
       body: SafeArea(
+        bottom: false,
         child: Padding(
           padding: const EdgeInsets.only(left: 16, top: 16, right: 16),
           child: BlocBuilder<ForexBloc, ForexState>(
@@ -40,24 +41,33 @@ class _ForexPageState extends State<ForexPage> {
               }
 
               return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ExchangePicker(
                     selectedExchange: state.selectedExchange ?? '--',
+                    exchanges: state.exchanges,
+                    onExchangeSelected: (exchange) {
+                      BlocProvider.of<ForexBloc>(context).add(ChangeExchange(exchange));
+                    },
                   ),
                   const SizedBox(height: 25),
 
                   // List of Symbols
                   if (state.isSymbolsLoading)
                     const Center(child: CircularProgressIndicator.adaptive())
-                  else
-                    Expanded(
-                      child: ListView.builder(
-                        itemCount: state.symbols.length,
-                        itemBuilder: (context, index) {
-                          return ForexSymbolWidget(symbol: state.symbols.elementAt(index));
-                        },
-                      ),
-                    )
+                  else ...[
+                    if (state.symbols.isEmpty)
+                      const Center(child: Text('No symbols found'))
+                    else
+                      Expanded(
+                        child: ListView.builder(
+                          itemCount: state.symbols.length,
+                          itemBuilder: (context, index) {
+                            return ForexSymbolWidget(symbol: state.symbols.elementAt(index));
+                          },
+                        ),
+                      )
+                  ],
                 ],
               );
             },

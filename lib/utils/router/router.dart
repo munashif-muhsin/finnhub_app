@@ -1,7 +1,9 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../features/forex/bloc/forex_bloc.dart';
 import '../../features/home/presentation/home_page.dart';
 import '../../features/splash/presentation/splash_page.dart';
 import 'routes.dart';
@@ -13,7 +15,12 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         return MaterialPageRoute(builder: (context) => const SplashPage());
 
       case Routes.home:
-        return MaterialPageRoute(builder: (context) => const HomePage());
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => ForexBloc(),
+            child: const HomePage(),
+          ),
+        );
 
       default:
         return MaterialPageRoute(

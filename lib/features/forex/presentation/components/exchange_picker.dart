@@ -4,7 +4,12 @@ import '../../../../theme/colors.dart';
 import '../../../../theme/decorations.dart';
 
 class ExchangePicker extends StatelessWidget {
-  const ExchangePicker({super.key});
+  const ExchangePicker({
+    super.key,
+    required this.selectedExchange,
+  });
+
+  final String selectedExchange;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +27,7 @@ class ExchangePicker extends StatelessWidget {
                   style: TextTheme.of(context).labelMedium,
                 ),
                 Text(
-                  "OMADA",
+                  selectedExchange.toUpperCase(),
                   style: TextTheme.of(context).bodyLarge,
                 ),
               ],

@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 
+import 'package:finnhub_app/features/forex/models/forex_symbol_model.dart';
+
 import '../../../../theme/decorations.dart';
 
-class ForexSymbol extends StatelessWidget {
-  const ForexSymbol({
+class ForexSymbolWidget extends StatelessWidget {
+  const ForexSymbolWidget({
     super.key,
+    required this.symbol,
   });
+
+  final ForexSymbol symbol;
 
   @override
   Widget build(BuildContext context) {
@@ -20,11 +25,11 @@ class ForexSymbol extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "EUR/USD",
+                  symbol.displaySymbol,
                   style: TextTheme.of(context).headlineSmall,
                 ),
                 Text(
-                  "IC MARKETS Euro vs US Dollar EURUSD",
+                  symbol.description,
                   style: TextTheme.of(context).labelMedium,
                 ),
               ],

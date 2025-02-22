@@ -17,4 +17,8 @@ class ApiUrls {
   /// Get a list of Forex symbols
   /// [API Docs](https://finnhub.io/docs/api/forex-symbols)
   String symbols(String exchange) => '$restUrl/v1/forex/symbol?exchange=$exchange';
+
+  /// Get a list of Forex Exchanges
+  /// [API Docs](https://finnhub.io/docs/api/forex-exchanges)
+  String get exchanges => '$restUrl/v1/forex/exchange';
 }

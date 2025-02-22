@@ -1,11 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../theme/colors.dart';
+import '../bloc/forex_bloc.dart';
 import 'components/exchange_picker.dart';
-import 'components/forex_symbol.dart';
+import 'components/forex_symbol_widget.dart';
 
-class ForexPage extends StatelessWidget {
+class ForexPage extends StatefulWidget {
   const ForexPage({super.key});
+
+  @override
+  State<ForexPage> createState() => _ForexPageState();
+}
+
+class _ForexPageState extends State<ForexPage> {
+  @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<ForexBloc>(context).add(InitializeForexState());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,19 +33,34 @@ class ForexPage extends StatelessWidget {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(left: 16, top: 16, right: 16),
-          child: Column(
-            children: [
-              ExchangePicker(),
-              const SizedBox(height: 25),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: 5,
-                  itemBuilder: (context, index) {
-                    return ForexSymbol();
-                  },
-                ),
-              )
-            ],
+          child: BlocBuilder<ForexBloc, ForexState>(
+            builder: (context, state) {
+              if (state.isLoading) {
+                return const Center(child: CircularProgressIndicator.adaptive());
+              }
+
+              return Column(
+                children: [
+                  ExchangePicker(
+                    selectedExchange: state.selectedExchange ?? '--',
+                  ),
+                  const SizedBox(height: 25),
+
+                  // List of Symbols
+                  if (state.isSymbolsLoading)
+                    const Center(child: CircularProgressIndicator.adaptive())
+                  else
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: state.symbols.length,
+                        itemBuilder: (context, index) {
+                          return ForexSymbolWidget(symbol: state.symbols.elementAt(index));
+                        },
+                      ),
+                    )
+                ],
+              );
+            },
           ),
         ),
       ),

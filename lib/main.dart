@@ -27,7 +27,9 @@ void main() async {
         defaultValue: '.env',
       );
       await dotenv.load(fileName: "env/$envFile");
-      ApiUrls.fromEnv(dotenv);
+
+      // Set up API Urls
+      apiUrls = ApiUrls.fromEnv(dotenv);
 
       /// Widget to show whenever a UI exception has occurred
       ErrorWidget.builder = (FlutterErrorDetails details) {

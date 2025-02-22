@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:math' as math;
 
 import 'package:finnhub_app/features/tick/models/tick_model.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -33,6 +34,11 @@ class ApiConnection {
   // This is used to queue the subscriptions when the connection is not ready.
   List<String> symbolsToSubscribe = [];
 
+  // Maximum retry count for reconnection attempts
+  static const int _maxRetries = 5;
+  int _retryCount = 0;
+  Timer? _reconnectionTimer;
+
   bool isTryingToReconnect = true;
 
   void subscribeToSymbolsInQueue() {
@@ -54,12 +60,13 @@ class ApiConnection {
       await _channel.ready;
       isTryingToReconnect = false;
       log("connection ready");
+      _retryCount = 0;
 
       // Resubscribe if connection was disconnected
       if (_subscriptions.values.where((element) => element != 0).isNotEmpty) {
         final keysToSubscribe = _subscriptions.keys;
         for (var key in keysToSubscribe) {
-          subscribeToSymbol(key);
+          subscribeToSymbol(key, isForce: true);
         }
       }
 
@@ -73,6 +80,21 @@ class ApiConnection {
 
   void onClose() {
     log("Connection closed");
+
+    // Only attempt reconnection if we haven't exceeded max retries
+    if (_retryCount < _maxRetries) {
+      // Calculate delay with exponential backoff (2^n seconds)
+      final delay = Duration(seconds: math.pow(2, _retryCount).toInt());
+      log("Attempting to reconnect in ${delay.inSeconds} seconds");
+
+      _reconnectionTimer?.cancel();
+      _reconnectionTimer = Timer(delay, () {
+        _retryCount++;
+        initialize();
+      });
+    } else {
+      log("Max reconnection attempts reached");
+    }
   }
 
   void onData(dynamic message) {
@@ -101,18 +123,20 @@ class ApiConnection {
 
   // These messages will be resubscribed on disconnection
   // Use this only for ticks
-  void subscribeToSymbol(String symbol) {
+  void subscribeToSymbol(String symbol, {bool isForce = false}) {
     if (isTryingToReconnect) {
       symbolsToSubscribe.add(symbol);
       return;
     }
 
-    int? subscriptionsCount = _subscriptions[symbol];
+    if (!isForce) {
+      int? subscriptionsCount = _subscriptions[symbol];
 
-    // Increment subscriptions count
-    if (subscriptionsCount != null) {
-      _subscriptions[symbol] = ++subscriptionsCount;
-      return;
+      // Increment subscriptions count
+      if (subscriptionsCount != null) {
+        _subscriptions[symbol] = ++subscriptionsCount;
+        return;
+      }
     }
 
     _subscriptions[symbol] = 1;

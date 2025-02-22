@@ -126,7 +126,7 @@ class ApiConnection {
     int? subscriptionsCount = _subscriptions[symbol];
 
     // Decrement subscriptions count
-    if (subscriptionsCount != null && subscriptionsCount > 0) {
+    if (subscriptionsCount != null && subscriptionsCount > 1) {
       _subscriptions[symbol] = --subscriptionsCount;
       return;
     }

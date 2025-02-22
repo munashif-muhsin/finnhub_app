@@ -7,19 +7,13 @@ import '../bloc/exchange_symbols_bloc.dart';
 import 'components/exchange_picker.dart';
 import 'components/exchange_symbol_widget.dart';
 
-class ExchangeSymbolsPage extends StatefulWidget {
-  const ExchangeSymbolsPage({super.key});
+class ExchangeSymbolsPage extends StatelessWidget {
+  const ExchangeSymbolsPage({
+    super.key,
+    required this.title,
+  });
 
-  @override
-  State<ExchangeSymbolsPage> createState() => _ExchangeSymbolsPageState();
-}
-
-class _ExchangeSymbolsPageState extends State<ExchangeSymbolsPage> {
-  @override
-  void initState() {
-    super.initState();
-    BlocProvider.of<ExchangeSymbolsBloc>(context).add(InitializeExchangeSymbolsState());
-  }
+  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +21,7 @@ class _ExchangeSymbolsPageState extends State<ExchangeSymbolsPage> {
       backgroundColor: AppColors.of(context).background,
       appBar: AppBar(
         title: Text(
-          "Forex",
+          title,
           style: TextTheme.of(context).headlineLarge,
         ),
       ),

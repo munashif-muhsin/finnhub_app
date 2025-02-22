@@ -11,10 +11,16 @@ import '../repositories/exchange_symbols_repository_i.dart';
 part 'exchange_symbols_event.dart';
 part 'exchange_symbols_state.dart';
 
+enum ExchangeType {
+  forex,
+  crypto,
+}
+
 class ExchangeSymbolsBloc extends Bloc<ExchangeSymbolsEvent, ExchangeSymbolsState> {
   final ExchangeSymbolsRepository _exchangeSymbolsRepository = ExchangeSymbolsRepositoryImplementation(apiUrls);
+  final ExchangeType exchangeType;
 
-  ExchangeSymbolsBloc() : super(ExchangeSymbolsState.initial()) {
+  ExchangeSymbolsBloc(this.exchangeType) : super(ExchangeSymbolsState.initial()) {
     on<InitializeExchangeSymbolsState>(_onInitializeExchangeState);
     on<ChangeExchange>(_onInitializeSymbols);
   }
@@ -24,9 +30,9 @@ class ExchangeSymbolsBloc extends Bloc<ExchangeSymbolsEvent, ExchangeSymbolsStat
     Emitter<ExchangeSymbolsState> emit,
   ) async {
     try {
-      emit(state.copyWith(isLoading: true, hasError: false));
+      emit(state.copyWith(hasError: false));
 
-      final List<String> exchanges = await _exchangeSymbolsRepository.getExchanges();
+      final List<String> exchanges = await _exchangeSymbolsRepository.getExchanges(exchangeType.name);
       emit(state.copyWith(exchanges: exchanges, isLoading: false));
 
       if (exchanges.isNotEmpty) {
@@ -52,7 +58,10 @@ class ExchangeSymbolsBloc extends Bloc<ExchangeSymbolsEvent, ExchangeSymbolsStat
         hasError: false,
       ));
 
-      final List<ExchangeSymbol> symbols = await _exchangeSymbolsRepository.getSymbols(state.selectedExchange!);
+      final List<ExchangeSymbol> symbols = await _exchangeSymbolsRepository.getSymbols(
+        state.selectedExchange!,
+        exchangeType.name,
+      );
       emit(state.copyWith(symbols: symbols, isSymbolsLoading: false));
     } catch (e, stackTrace) {
       Toasts.failure(e.toString());

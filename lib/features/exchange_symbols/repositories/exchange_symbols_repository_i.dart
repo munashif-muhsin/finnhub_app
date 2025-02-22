@@ -11,9 +11,9 @@ class ExchangeSymbolsRepositoryImplementation implements ExchangeSymbolsReposito
   ExchangeSymbolsRepositoryImplementation(this.apiUrls);
 
   @override
-  Future<List<String>> getExchanges() async {
+  Future<List<String>> getExchanges(String exchangeType) async {
     final Response response = await DioInstance.instance.dio.get(
-      apiUrls.forexExchanges,
+      apiUrls.exchanges(exchangeType),
     );
 
     final responseData = response.data;
@@ -21,9 +21,9 @@ class ExchangeSymbolsRepositoryImplementation implements ExchangeSymbolsReposito
   }
 
   @override
-  Future<List<ExchangeSymbol>> getSymbols(String exchange) async {
+  Future<List<ExchangeSymbol>> getSymbols(String exchange, String exchangeType) async {
     final Response response = await DioInstance.instance.dio.get(
-      apiUrls.forexSymbols(exchange),
+      apiUrls.symbols(exchange, exchangeType),
     );
 
     final responseData = response.data;

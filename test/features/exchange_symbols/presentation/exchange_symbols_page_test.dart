@@ -21,7 +21,7 @@ void main() {
     return MaterialApp(
       home: BlocProvider<ExchangeSymbolsBloc>.value(
         value: mockForexBloc,
-        child: const ExchangeSymbolsPage(),
+        child: const ExchangeSymbolsPage(title: "Test"),
       ),
     );
   }

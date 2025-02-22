@@ -14,7 +14,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
 
       case Routes.home:
         return MaterialPageRoute(
-          builder: (context) => const HomePage(),
+          builder: (context) => HomePage(),
         );
 
       default:

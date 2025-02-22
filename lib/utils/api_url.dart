@@ -6,7 +6,9 @@ class ApiUrls {
 
   ApiUrls({required this.restUrl, required this.wsUrl});
 
-  /// We can setup Urls here based on the endpoint.
+  /// Creates ApiUrls instance from environment variables
+  ///
+  /// [env] The DotEnv instance containing environment variables
   factory ApiUrls.fromEnv(DotEnv env) {
     return ApiUrls(
       restUrl: env.get('REST_URL', fallback: ''),
@@ -14,13 +16,18 @@ class ApiUrls {
     );
   }
 
-  /// Get a list of Forex/Crypto symbols
+  /// Generates URL for fetching symbols from an exchange
   /// [API Docs](https://finnhub.io/docs/api/forex-symbols)
   /// [API Docs](https://finnhub.io/docs/api/crypto-symbols)
+  ///
+  /// [exchange] The exchange identifier
+  /// [exchangeType] The type of exchange (forex/crypto)
   String symbols(String exchange, String exchangeType) => '$restUrl/v1/$exchangeType/symbol?exchange=$exchange';
 
-  /// Get a list of Forex/Crypto Exchanges
+  /// Generates URL for fetching available exchanges
   /// [API Docs](https://finnhub.io/docs/api/forex-exchanges)
   /// [API Docs](https://finnhub.io/docs/api/crypto-exchanges)
+  ///
+  /// [exchangeType] The type of exchange (forex/crypto)
   String exchanges(String exchangeType) => '$restUrl/v1/$exchangeType/exchange';
 }

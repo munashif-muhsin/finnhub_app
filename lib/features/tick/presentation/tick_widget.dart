@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import '../models/tick_model.dart';
-import '../repositories/ticker_mixin.dart';
+import '../utils/ticker_mixin.dart';
 
 class TickWidget extends StatefulWidget with TickerMixin {
   final String symbol;

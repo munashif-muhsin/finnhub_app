@@ -12,9 +12,12 @@ import 'utils/router/routes.dart';
 /// This is used to setup the API urls based on the endpoint
 late ApiUrls apiUrls;
 
-/// This is for global navigation. It should be used sparingly
+/// Global navigation key that provides access to NavigatorState
+/// This enables navigation from anywhere in the app without context
 final navigatorKey = GlobalKey<NavigatorState>();
 
+/// Entry point of the application
+/// Initializes environment variables, error handling, and runs the app
 void main() async {
   await runZonedGuarded(
     () async {
@@ -51,7 +54,11 @@ void main() async {
   );
 }
 
+/// Root widget of the FinnHub application
+///
+/// Sets up the MaterialApp with theme, routing, and initial configuration
 class FinnHubApp extends StatelessWidget {
+  /// Creates the root application widget
   const FinnHubApp({super.key});
 
   @override

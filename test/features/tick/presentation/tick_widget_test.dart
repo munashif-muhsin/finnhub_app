@@ -5,7 +5,7 @@ import 'dart:async';
 
 import 'package:finnhub_app/features/tick/presentation/tick_widget.dart';
 import 'package:finnhub_app/features/tick/models/tick_model.dart';
-import 'package:finnhub_app/features/tick/repositories/ticker_mixin.dart';
+import 'package:finnhub_app/features/tick/utils/ticker_mixin.dart';
 
 abstract class MockFunctionWithAParam {
   void call(String message);

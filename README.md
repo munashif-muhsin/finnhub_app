@@ -1,14 +1,35 @@
 # Finnhub App
 
-A Flutter application that utilizes the Finnhub API for financial market data.
+A Flutter application that provides real-time financial market data using the Finnhub API. The app supports both Forex and Cryptocurrency market data visualization.
+
+## Features
+
+- Real-time market data streaming
+- Support for Forex and Crypto markets
+- Exchange symbol browsing
+- Dynamic exchange selection
+- Real-time price ticking
+
+## Project Structure
+
+```
+lib/
+├── features/
+│   ├── common/          # Shared widgets and utilities
+│   ├── exchange_symbols/ # Exchange and symbols feature
+│   ├── home/            # Main navigation and home screen
+│   └── tick/            # Real-time price ticking feature
+├── theme/               # App theming and styling
+└── utils/              # Utility functions and constants
+```
 
 ## Setup
 
 1. Clone the repository
-2. Create a `.env` file in the root directory with the following content:
+2. Create a `.env` file in the root directory with your Finnhub API credentials:
    ```
-   API_KEY=<API Key here>
-   BASE_URL=<Base URL here>
+   API_KEY=<your_finnhub_api_key>
+   BASE_URL=https://finnhub.io/api/v1
    ```
 3. Install dependencies:
    ```bash
@@ -21,8 +42,36 @@ A Flutter application that utilizes the Finnhub API for financial market data.
 
 ## Environment Configuration
 
-The app supports multiple environments through `.env` files. You can create different environment files (e.g., `.env.dev`, `.env.prod`) and specify which one to use when running the app:
+The app supports multiple environments through `.env` files:
 
+- `.env.dev` - Development environment
+- `.env` - Production environment
+
+To run with a specific environment:
 ```bash
 flutter run --dart-define=envFile=.env.dev
 ```
+
+## Testing
+
+Run tests using:
+```bash
+flutter test
+```
+
+## Architecture
+
+The app follows a clean architecture approach with:
+- BLoC pattern for state management
+- Repository pattern for data access
+- Feature-first directory structure
+- Clean separation of concerns
+
+For detailed architecture and design decisions, see [Design Decisions](/docs/design-decisions.md).
+
+## Dependencies
+
+- flutter_bloc: State management
+- dio: HTTP client
+- bloc_test: Testing BLoC components
+- flutter_dotenv: Environment configuration

@@ -1,15 +1,15 @@
-part of 'forex_bloc.dart';
+part of 'exchange_symbols_bloc.dart';
 
-class ForexState {
+class ExchangeSymbolsState {
   final bool isLoading;
   final bool isSymbolsLoading;
-  final List<ForexSymbol> symbols;
+  final List<ExchangeSymbol> symbols;
   final List<String> exchanges;
   final String? selectedExchange;
   final bool hasError;
 
-  factory ForexState.initial() {
-    return ForexState(
+  factory ExchangeSymbolsState.initial() {
+    return ExchangeSymbolsState(
       isLoading: true,
       symbols: [],
       exchanges: [],
@@ -18,7 +18,7 @@ class ForexState {
     );
   }
 
-  ForexState({
+  ExchangeSymbolsState({
     required this.isLoading,
     required this.isSymbolsLoading,
     required this.symbols,
@@ -27,15 +27,15 @@ class ForexState {
     required this.hasError,
   });
 
-  ForexState copyWith({
+  ExchangeSymbolsState copyWith({
     bool? isLoading,
     bool? isSymbolsLoading,
-    List<ForexSymbol>? symbols,
+    List<ExchangeSymbol>? symbols,
     List<String>? exchanges,
     String? selectedExchange,
     bool? hasError,
   }) {
-    return ForexState(
+    return ExchangeSymbolsState(
       isLoading: isLoading ?? this.isLoading,
       isSymbolsLoading: isSymbolsLoading ?? this.isSymbolsLoading,
       symbols: symbols ?? this.symbols,

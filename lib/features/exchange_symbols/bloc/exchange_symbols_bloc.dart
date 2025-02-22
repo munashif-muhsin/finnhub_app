@@ -4,29 +4,29 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../main.dart';
 import '../../../utils/toasts.dart';
-import '../models/forex_symbol_model.dart';
-import '../repositories/forex_repository.dart';
-import '../repositories/forex_repository_i.dart';
+import '../../common/models/exchange_symbol_model.dart';
+import '../repositories/exchange_symbols_repository.dart';
+import '../repositories/exchange_symbols_repository_i.dart';
 
-part 'forex_event.dart';
-part 'forex_state.dart';
+part 'exchange_symbols_event.dart';
+part 'exchange_symbols_state.dart';
 
-class ForexBloc extends Bloc<ForexEvent, ForexState> {
-  final ForexRepository _forexRepository = ForexRepositoryImplementation(apiUrls);
+class ExchangeSymbolsBloc extends Bloc<ExchangeSymbolsEvent, ExchangeSymbolsState> {
+  final ExchangeSymbolsRepository _exchangeSymbolsRepository = ExchangeSymbolsRepositoryImplementation(apiUrls);
 
-  ForexBloc() : super(ForexState.initial()) {
-    on<InitializeForexState>(_onInitializeForexState);
-    on<ChangeExchange>(_onInitializeForexSymbols);
+  ExchangeSymbolsBloc() : super(ExchangeSymbolsState.initial()) {
+    on<InitializeExchangeSymbolsState>(_onInitializeExchangeState);
+    on<ChangeExchange>(_onInitializeSymbols);
   }
 
-  Future<void> _onInitializeForexState(
-    InitializeForexState event,
-    Emitter<ForexState> emit,
+  Future<void> _onInitializeExchangeState(
+    InitializeExchangeSymbolsState event,
+    Emitter<ExchangeSymbolsState> emit,
   ) async {
     try {
       emit(state.copyWith(isLoading: true, hasError: false));
 
-      final List<String> exchanges = await _forexRepository.getExchanges();
+      final List<String> exchanges = await _exchangeSymbolsRepository.getExchanges();
       emit(state.copyWith(exchanges: exchanges, isLoading: false));
 
       if (exchanges.isNotEmpty) {
@@ -41,9 +41,9 @@ class ForexBloc extends Bloc<ForexEvent, ForexState> {
     }
   }
 
-  Future<void> _onInitializeForexSymbols(
+  Future<void> _onInitializeSymbols(
     ChangeExchange event,
-    Emitter<ForexState> emit,
+    Emitter<ExchangeSymbolsState> emit,
   ) async {
     try {
       emit(state.copyWith(
@@ -52,7 +52,7 @@ class ForexBloc extends Bloc<ForexEvent, ForexState> {
         hasError: false,
       ));
 
-      final List<ForexSymbol> symbols = await _forexRepository.getSymbols(state.selectedExchange!);
+      final List<ExchangeSymbol> symbols = await _exchangeSymbolsRepository.getSymbols(state.selectedExchange!);
       emit(state.copyWith(symbols: symbols, isSymbolsLoading: false));
     } catch (e, stackTrace) {
       Toasts.failure(e.toString());

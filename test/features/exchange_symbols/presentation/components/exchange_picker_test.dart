@@ -1,6 +1,6 @@
+import 'package:finnhub_app/features/exchange_symbols/presentation/components/exchange_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:finnhub_app/features/forex/presentation/components/exchange_picker.dart';
 
 void main() {
   group('ExchangePicker', () {

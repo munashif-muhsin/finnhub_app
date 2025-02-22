@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
-import 'package:finnhub_app/features/forex/models/forex_symbol_model.dart';
-
 import '../../../../theme/decorations.dart';
+import '../../../common/models/exchange_symbol_model.dart';
+import '../../../tick/presentation/tick_widget.dart';
 
-class ForexSymbolWidget extends StatelessWidget {
-  const ForexSymbolWidget({
+class ExchangeSymbolWidget extends StatelessWidget {
+  const ExchangeSymbolWidget({
     super.key,
     required this.symbol,
   });
 
-  final ForexSymbol symbol;
+  final ExchangeSymbol symbol;
 
   @override
   Widget build(BuildContext context) {
@@ -36,16 +36,7 @@ class ForexSymbolWidget extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 10),
-          Row(
-            children: [
-              Icon(Icons.keyboard_arrow_up),
-              const SizedBox(width: 2),
-              Text(
-                "123.45",
-                style: TextTheme.of(context).headlineMedium,
-              ),
-            ],
-          )
+          TickWidget(symbol: symbol.symbol),
         ],
       ),
     );

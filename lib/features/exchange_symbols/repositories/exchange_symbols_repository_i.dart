@@ -2,18 +2,18 @@ import 'package:dio/dio.dart';
 
 import '../../../utils/api_url.dart';
 import '../../../utils/dio_instance.dart';
-import '../models/forex_symbol_model.dart';
-import 'forex_repository.dart';
+import '../../common/models/exchange_symbol_model.dart';
+import 'exchange_symbols_repository.dart';
 
-class ForexRepositoryImplementation implements ForexRepository {
+class ExchangeSymbolsRepositoryImplementation implements ExchangeSymbolsRepository {
   final ApiUrls apiUrls;
 
-  ForexRepositoryImplementation(this.apiUrls);
+  ExchangeSymbolsRepositoryImplementation(this.apiUrls);
 
   @override
   Future<List<String>> getExchanges() async {
     final Response response = await DioInstance.instance.dio.get(
-      apiUrls.exchanges,
+      apiUrls.forexExchanges,
     );
 
     final responseData = response.data;
@@ -21,15 +21,15 @@ class ForexRepositoryImplementation implements ForexRepository {
   }
 
   @override
-  Future<List<ForexSymbol>> getSymbols(String exchange) async {
+  Future<List<ExchangeSymbol>> getSymbols(String exchange) async {
     final Response response = await DioInstance.instance.dio.get(
-      apiUrls.symbols(exchange),
+      apiUrls.forexSymbols(exchange),
     );
 
     final responseData = response.data;
 
-    return List<ForexSymbol>.from((responseData as List).map(
-      (symbol) => ForexSymbol.fromJson(symbol),
+    return List<ExchangeSymbol>.from((responseData as List).map(
+      (symbol) => ExchangeSymbol.fromJson(symbol),
     ));
   }
 }

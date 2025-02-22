@@ -16,9 +16,17 @@ class ApiUrls {
 
   /// Get a list of Forex symbols
   /// [API Docs](https://finnhub.io/docs/api/forex-symbols)
-  String symbols(String exchange) => '$restUrl/v1/forex/symbol?exchange=$exchange';
+  String forexSymbols(String exchange) => '$restUrl/v1/forex/symbol?exchange=$exchange';
 
   /// Get a list of Forex Exchanges
   /// [API Docs](https://finnhub.io/docs/api/forex-exchanges)
-  String get exchanges => '$restUrl/v1/forex/exchange';
+  String get forexExchanges => '$restUrl/v1/forex/exchange';
+
+  /// Get a list of Crypto symbols
+  /// [API Docs](https://finnhub.io/docs/api/crypto-symbols)
+  String cryptoSymbols(String exchange) => '$restUrl/v1/crypto/symbol?exchange=$exchange';
+
+  /// Get a list of Forex Exchanges
+  /// [API Docs](https://finnhub.io/docs/api/crypto-exchanges)
+  String get cryptoExchanges => '$restUrl/v1/crypto/exchange';
 }

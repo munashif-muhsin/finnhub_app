@@ -3,22 +3,22 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../theme/colors.dart';
 import '../../common/widgets/error_retry_widget.dart';
-import '../bloc/forex_bloc.dart';
+import '../bloc/exchange_symbols_bloc.dart';
 import 'components/exchange_picker.dart';
-import 'components/forex_symbol_widget.dart';
+import 'components/exchange_symbol_widget.dart';
 
-class ForexPage extends StatefulWidget {
-  const ForexPage({super.key});
+class ExchangeSymbolsPage extends StatefulWidget {
+  const ExchangeSymbolsPage({super.key});
 
   @override
-  State<ForexPage> createState() => _ForexPageState();
+  State<ExchangeSymbolsPage> createState() => _ExchangeSymbolsPageState();
 }
 
-class _ForexPageState extends State<ForexPage> {
+class _ExchangeSymbolsPageState extends State<ExchangeSymbolsPage> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<ForexBloc>(context).add(InitializeForexState());
+    BlocProvider.of<ExchangeSymbolsBloc>(context).add(InitializeExchangeSymbolsState());
   }
 
   @override
@@ -35,7 +35,7 @@ class _ForexPageState extends State<ForexPage> {
         bottom: false,
         child: Padding(
           padding: const EdgeInsets.only(left: 16, top: 16, right: 16),
-          child: BlocBuilder<ForexBloc, ForexState>(
+          child: BlocBuilder<ExchangeSymbolsBloc, ExchangeSymbolsState>(
             builder: (context, state) {
               if (state.isLoading) {
                 return const Center(child: CircularProgressIndicator.adaptive());
@@ -44,7 +44,7 @@ class _ForexPageState extends State<ForexPage> {
               if (state.hasError) {
                 return ErrorRetryWidget(
                   onRetry: () {
-                    BlocProvider.of<ForexBloc>(context).add(InitializeForexState());
+                    BlocProvider.of<ExchangeSymbolsBloc>(context).add(InitializeExchangeSymbolsState());
                   },
                 );
               }
@@ -56,7 +56,7 @@ class _ForexPageState extends State<ForexPage> {
                     selectedExchange: state.selectedExchange ?? '--',
                     exchanges: state.exchanges,
                     onExchangeSelected: (exchange) {
-                      BlocProvider.of<ForexBloc>(context).add(ChangeExchange(exchange));
+                      BlocProvider.of<ExchangeSymbolsBloc>(context).add(ChangeExchange(exchange));
                     },
                   ),
                   const SizedBox(height: 25),
@@ -72,7 +72,7 @@ class _ForexPageState extends State<ForexPage> {
                         child: ListView.builder(
                           itemCount: state.symbols.length,
                           itemBuilder: (context, index) {
-                            return ForexSymbolWidget(symbol: state.symbols.elementAt(index));
+                            return ExchangeSymbolWidget(symbol: state.symbols.elementAt(index));
                           },
                         ),
                       )

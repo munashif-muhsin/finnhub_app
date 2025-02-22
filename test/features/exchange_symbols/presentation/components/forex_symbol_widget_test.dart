@@ -1,12 +1,12 @@
+import 'package:finnhub_app/features/exchange_symbols/presentation/components/exchange_symbol_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:finnhub_app/features/forex/models/forex_symbol_model.dart';
-import 'package:finnhub_app/features/forex/presentation/components/forex_symbol_widget.dart';
+import 'package:finnhub_app/features/common/models/exchange_symbol_model.dart';
 
 void main() {
   group('ForexSymbolWidget', () {
     testWidgets('displays symbol information correctly', (tester) async {
-      final symbol = ForexSymbol(
+      final symbol = ExchangeSymbol(
         description: 'Euro/US Dollar',
         displaySymbol: 'EUR/USD',
         symbol: 'EUR/USD:FOREX',
@@ -15,7 +15,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: ForexSymbolWidget(symbol: symbol),
+            body: ExchangeSymbolWidget(symbol: symbol),
           ),
         ),
       );

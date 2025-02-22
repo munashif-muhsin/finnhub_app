@@ -5,10 +5,16 @@ import '../../../theme/colors.dart';
 import '../../exchange_symbols/bloc/exchange_symbols_bloc.dart';
 import '../../exchange_symbols/presentation/exchange_symbols_page.dart';
 
-class HomePage extends StatelessWidget {
-  HomePage({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   final ExchangeSymbolsBloc forexBloc = ExchangeSymbolsBloc(ExchangeType.forex)..add(InitializeExchangeSymbolsState());
+
   final ExchangeSymbolsBloc cryptoBloc = ExchangeSymbolsBloc(ExchangeType.crypto)
     ..add(InitializeExchangeSymbolsState());
 

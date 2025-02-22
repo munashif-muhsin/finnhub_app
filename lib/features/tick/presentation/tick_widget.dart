@@ -62,11 +62,18 @@ class _TickWidgetState extends State<TickWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final price = currentTick?.price;
+    final priceToDisplay = price == null
+        ? '--'
+        : price > 100
+            ? price.toStringAsFixed(2)
+            : price.toStringAsFixed(4);
+
     return Row(
       children: [
         if (widget.showIcon) _getDirectionalIcon(),
         Text(
-          currentTick?.price?.toStringAsFixed(2) ?? '--',
+          priceToDisplay,
           style: TextTheme.of(context).headlineMedium?.copyWith(color: getColor()),
         ),
       ],

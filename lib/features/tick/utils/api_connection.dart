@@ -4,14 +4,18 @@ import 'dart:developer';
 import 'dart:math' as math;
 
 import 'package:finnhub_app/features/tick/models/tick_model.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 import '../../../main.dart';
 
+enum ApiConnectionStatus { connecting, connected, disconnected }
+
 class ApiConnection {
   static final ApiConnection instance = ApiConnection._();
+  final ValueNotifier<ApiConnectionStatus?> status = ValueNotifier(ApiConnectionStatus.connecting);
 
   ApiConnection._() {
     initialize();
@@ -61,6 +65,7 @@ class ApiConnection {
       isTryingToReconnect = false;
       log("connection ready");
       _retryCount = 0;
+      status.value = ApiConnectionStatus.connected;
 
       // Resubscribe if connection was disconnected
       if (_subscriptions.values.where((element) => element != 0).isNotEmpty) {
@@ -80,6 +85,7 @@ class ApiConnection {
 
   void onClose() {
     log("Connection closed");
+    status.value = ApiConnectionStatus.connecting;
 
     // Only attempt reconnection if we haven't exceeded max retries
     if (_retryCount < _maxRetries) {
@@ -93,6 +99,7 @@ class ApiConnection {
         initialize();
       });
     } else {
+      status.value = ApiConnectionStatus.disconnected;
       log("Max reconnection attempts reached");
     }
   }

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import '../models/tick_model.dart';
 import '../repositories/ticker_mixin.dart';
 
-class TickWidget extends StatefulWidget {
+class TickWidget extends StatefulWidget with TickerMixin {
   final String symbol;
   final bool showIcon;
 
@@ -19,7 +19,7 @@ class TickWidget extends StatefulWidget {
   State<TickWidget> createState() => _TickWidgetState();
 }
 
-class _TickWidgetState extends State<TickWidget> with TickerMixin {
+class _TickWidgetState extends State<TickWidget> {
   StreamSubscription? subscription;
   TickData? lastTick;
   TickData? currentTick;
@@ -50,13 +50,13 @@ class _TickWidgetState extends State<TickWidget> with TickerMixin {
 
   @override
   void initState() {
-    subscription = tickStream(widget.symbol).listen((TickData tick) {
+    subscription = widget.tickStream(widget.symbol).listen((TickData tick) {
       setState(() {
         lastTick = currentTick;
         currentTick = tick;
       });
     });
-    subscribeToSymbol(widget.symbol);
+    widget.subscribeToSymbol(widget.symbol);
     super.initState();
   }
 
@@ -81,7 +81,7 @@ class _TickWidgetState extends State<TickWidget> with TickerMixin {
 
   @override
   void dispose() {
-    unsubscribeToSymbol(widget.symbol);
+    widget.unsubscribeToSymbol(widget.symbol);
     subscription?.cancel();
     super.dispose();
   }

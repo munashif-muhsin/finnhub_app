@@ -4,7 +4,12 @@ class TickData {
   final int? time;
   final double? volume;
 
-  TickData({required this.price, required this.symbol, required this.time, required this.volume});
+  TickData({
+    this.price,
+    this.symbol,
+    this.time,
+    this.volume,
+  });
 
   factory TickData.fromJson(Map<String, dynamic> map) {
     return TickData(

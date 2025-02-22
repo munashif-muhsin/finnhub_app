@@ -40,6 +40,10 @@ lib/
    flutter run --dart-define=envFile=.env
    ```
 
+## Requirements
+
+- Flutter 3.27.3
+
 ## Environment Configuration
 
 The app supports multiple environments through `.env` files:

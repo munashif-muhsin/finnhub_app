@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../theme/colors.dart';
+import '../../common/widgets/error_retry_widget.dart';
 import '../bloc/forex_bloc.dart';
 import 'components/exchange_picker.dart';
 import 'components/forex_symbol_widget.dart';
@@ -38,6 +39,14 @@ class _ForexPageState extends State<ForexPage> {
             builder: (context, state) {
               if (state.isLoading) {
                 return const Center(child: CircularProgressIndicator.adaptive());
+              }
+
+              if (state.hasError) {
+                return ErrorRetryWidget(
+                  onRetry: () {
+                    BlocProvider.of<ForexBloc>(context).add(InitializeForexState());
+                  },
+                );
               }
 
               return Column(

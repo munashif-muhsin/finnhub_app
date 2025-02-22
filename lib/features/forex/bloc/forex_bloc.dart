@@ -24,7 +24,7 @@ class ForexBloc extends Bloc<ForexEvent, ForexState> {
     Emitter<ForexState> emit,
   ) async {
     try {
-      emit(state.copyWith(isLoading: true));
+      emit(state.copyWith(isLoading: true, hasError: false));
 
       final List<String> exchanges = await _forexRepository.getExchanges();
       emit(state.copyWith(exchanges: exchanges, isLoading: false));
@@ -36,7 +36,7 @@ class ForexBloc extends Bloc<ForexEvent, ForexState> {
       }
     } catch (e, stackTrace) {
       Toasts.failure(e.toString());
-      emit(state.copyWith(isLoading: false));
+      emit(state.copyWith(isLoading: false, hasError: true));
       log(e.toString(), stackTrace: stackTrace);
     }
   }
@@ -49,13 +49,14 @@ class ForexBloc extends Bloc<ForexEvent, ForexState> {
       emit(state.copyWith(
         selectedExchange: event.exchange,
         isSymbolsLoading: true,
+        hasError: false,
       ));
 
       final List<ForexSymbol> symbols = await _forexRepository.getSymbols(state.selectedExchange!);
       emit(state.copyWith(symbols: symbols, isSymbolsLoading: false));
     } catch (e, stackTrace) {
       Toasts.failure(e.toString());
-      emit(state.copyWith(isSymbolsLoading: false));
+      emit(state.copyWith(isSymbolsLoading: false, hasError: true));
       log(e.toString(), stackTrace: stackTrace);
     }
   }

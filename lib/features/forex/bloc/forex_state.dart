@@ -6,6 +6,7 @@ class ForexState {
   final List<ForexSymbol> symbols;
   final List<String> exchanges;
   final String? selectedExchange;
+  final bool hasError;
 
   factory ForexState.initial() {
     return ForexState(
@@ -13,6 +14,7 @@ class ForexState {
       symbols: [],
       exchanges: [],
       isSymbolsLoading: true,
+      hasError: false,
     );
   }
 
@@ -22,6 +24,7 @@ class ForexState {
     required this.symbols,
     required this.exchanges,
     this.selectedExchange,
+    required this.hasError,
   });
 
   ForexState copyWith({
@@ -30,6 +33,7 @@ class ForexState {
     List<ForexSymbol>? symbols,
     List<String>? exchanges,
     String? selectedExchange,
+    bool? hasError,
   }) {
     return ForexState(
       isLoading: isLoading ?? this.isLoading,
@@ -37,6 +41,7 @@ class ForexState {
       symbols: symbols ?? this.symbols,
       exchanges: exchanges ?? this.exchanges,
       selectedExchange: selectedExchange ?? this.selectedExchange,
+      hasError: hasError ?? this.hasError,
     );
   }
 }

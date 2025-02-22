@@ -26,7 +26,7 @@ lib/
 ## Setup
 
 1. Clone the repository
-2. Make a copy of `.sample.env` file as `.env` in the root directory and fill in your Finnhub API credentials:
+2. Make a copy of `.sample.env` file as `.env` in the env/ directory and fill in your Finnhub API credentials:
    ```
    API_KEY=<your_finnhub_api_key>
    BASE_URL=https://finnhub.io/api/v1

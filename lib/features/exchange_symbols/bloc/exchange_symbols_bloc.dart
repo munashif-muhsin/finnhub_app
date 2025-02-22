@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../main.dart';
 import '../../../utils/toasts.dart';
-import '../../common/models/exchange_symbol_model.dart';
+import '../models/exchange_symbol_model.dart';
 import '../repositories/exchange_symbols_repository.dart';
 import '../repositories/exchange_symbols_repository_i.dart';
 

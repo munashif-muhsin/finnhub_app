@@ -1,6 +1,6 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:finnhub_app/features/common/widgets/error_retry_widget.dart';
-import 'package:finnhub_app/features/common/models/exchange_symbol_model.dart';
+import 'package:finnhub_app/features/exchange_symbols/models/exchange_symbol_model.dart';
 import 'package:finnhub_app/features/exchange_symbols/bloc/exchange_symbols_bloc.dart';
 import 'package:finnhub_app/features/exchange_symbols/presentation/components/exchange_symbol_widget.dart';
 import 'package:finnhub_app/features/exchange_symbols/presentation/exchange_symbols_page.dart';

@@ -1,7 +1,7 @@
 import 'package:finnhub_app/features/exchange_symbols/presentation/components/exchange_symbol_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:finnhub_app/features/common/models/exchange_symbol_model.dart';
+import 'package:finnhub_app/features/exchange_symbols/models/exchange_symbol_model.dart';
 
 void main() {
   group('ForexSymbolWidget', () {

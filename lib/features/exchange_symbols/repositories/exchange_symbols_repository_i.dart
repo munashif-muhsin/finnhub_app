@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 
 import '../../../utils/api_url.dart';
 import '../../../utils/dio_instance.dart';
-import '../../common/models/exchange_symbol_model.dart';
+import '../models/exchange_symbol_model.dart';
 import 'exchange_symbols_repository.dart';
 
 class ExchangeSymbolsRepositoryImplementation implements ExchangeSymbolsRepository {

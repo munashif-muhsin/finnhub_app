@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../theme/decorations.dart';
-import '../../../common/models/exchange_symbol_model.dart';
+import '../../models/exchange_symbol_model.dart';
 import '../../../tick/presentation/tick_widget.dart';
 
 class ExchangeSymbolWidget extends StatelessWidget {

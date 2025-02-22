@@ -1,4 +1,4 @@
-import '../../common/models/exchange_symbol_model.dart';
+import '../models/exchange_symbol_model.dart';
 
 abstract class ExchangeSymbolsRepository {
   /// Get the list of Forex Exchanges
